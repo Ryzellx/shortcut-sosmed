@@ -1,140 +1,211 @@
 body {
-    background: #111;
+    background: #0a1633;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Animasi malam hari: bintang, bulan, meteorid */
+.night-sky-bg {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: twinkle 2s infinite alternate;
+}
+.star.s1 { width:2px; height:2px; top:10%; left:15%; animation-delay:0s;}
+.star.s2 { width:1.5px; height:1.5px; top:30%; left:40%; animation-delay:.5s;}
+.star.s3 { width:2.5px; height:2.5px; top:60%; left:70%; animation-delay:1s;}
+.star.s4 { width:1.2px; height:1.2px; top:80%; left:20%; animation-delay:1.5s;}
+.star.s5 { width:1.8px; height:1.8px; top:50%; left:80%; animation-delay:2s;}
+.star.s6 { width:1.3px; height:1.3px; top:20%; left:60%; animation-delay:.8s;}
+.star.s7 { width:2px; height:2px; top:75%; left:10%; animation-delay:1.2s;}
+.star.s8 { width:1.7px; height:1.7px; top:40%; left:90%; animation-delay:1.7s;}
+.star.s9 { width:2.2px; height:2.2px; top:65%; left:30%; animation-delay:2.2s;}
+.star.s10 { width:1.5px; height:1.5px; top:15%; left:75%; animation-delay:2.5s;}
+
+@keyframes twinkle {
+    0% { opacity: 0.7; }
+    100% { opacity: 0.2; }
+}
+
+.moon {
+    position: absolute;
+    top: 8%;
+    left: 70%;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle at 60% 40%, #fffbe6 70%, #ffe066 100%, #fff0 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px 10px #fffbe6, 0 0 80px 30px #ffe066;
+    z-index: 1;
+    animation: moon-move 30s linear infinite alternate;
+}
+@keyframes moon-move {
+    0% { left: 70%; top: 8%; }
+    100% { left: 60%; top: 12%; }
+}
+
+.meteor {
+    position: absolute;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, #fff 0%, #fff0 100%);
+    opacity: 0.8;
+    border-radius: 2px;
+    z-index: 2;
+    pointer-events: none;
+    animation: meteor-fall 1.2s linear forwards;
+}
+@keyframes meteor-fall {
+    0% { transform: translate(0,0) scaleX(1); opacity: 1;}
+    80% { opacity: 1;}
+    100% { transform: translate(300px,100px) scaleX(0.7); opacity: 0;}
 }
 .container {
     max-width: 400px;
-    margin: 40px auto;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    padding: 32px 24px;
-    text-align: center;
+    margin: 0 auto;
+    padding: 32px 16px 24px 16px;
+    background: rgba(20, 24, 40, 0.82);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+    position: relative;
+    z-index: 1;
+    margin-top: 48px;
 }
 .profile-img {
-    width: 100px;
-    height: 100px;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
-    margin-bottom: 16px;
+    object-fit: cover;
+    margin: 0 auto 16px auto;
+    display: block;
+    border: 3px solid #fff3;
+    box-shadow: 0 2px 12px #0007;
 }
 .username {
-    margin: 0;
-    font-size: 1.5em;
+    text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0 0 6px 0;
     font-weight: bold;
+    letter-spacing: 1px;
 }
 .bio {
-    color: #666;
-    margin: 12px 0 24px 0;
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 1rem;
+    margin-bottom: 18px;
 }
 .links {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 .link-btn {
-    display: block;
-    padding: 14px;
-    background: #222;
-    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 18px;
+    font-size: 1.07rem;
     border-radius: 8px;
+    background: #232946;
+    color: #fff;
     text-decoration: none;
     font-weight: 500;
-    transition: background 0.2s;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
+    box-shadow: 0 2px 8px #0002;
+    transition: background 0.18s, transform 0.13s;
+    border: none;
+    outline: none;
 }
-.link-btn::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255,255,255,0.18);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s cubic-bezier(.25,.8,.25,1), height 0.4s cubic-bezier(.25,.8,.25,1);
-    z-index: -1;
+.link-btn:active {
+    transform: scale(0.97);
 }
-.link-btn:hover {
-    background: #444;
-    box-shadow: 0 0 24px 6px rgba(67,233,123,0.18), 0 2px 24px 0 rgba(48,79,254,0.10);
-    transform: translateY(-3px) scale(1.06) rotate(-1deg);
-    filter: brightness(1.08) saturate(1.2);
+.btn-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 12px;
+    margin-bottom: 3px;
+    display: inline-block;
+    vertical-align: middle;
 }
-.link-btn:hover::after {
-    width: 300px;
-    height: 300px;
+.discord-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 12px;
+    margin-bottom: 3px;
 }
 .green-btn {
-    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    background: #25d366;
+    color: #fff;
+}
+.yellow-black-btn {
+    background: linear-gradient(90deg, #FFD600 0%, #000 100%);
     color: #fff;
     border: none;
-    box-shadow: 0 4px 14px rgba(67, 233, 123, 0.2);
     font-weight: bold;
-    transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(255, 214, 0, 0.18);
 }
-.green-btn::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255,255,255,0.18);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s cubic-bezier(.25,.8,.25,1), height 0.4s cubic-bezier(.25,.8,.25,1);
-    z-index: -1;
-}
-.green-btn:hover {
-    background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(67, 233, 123, 0.3);
-}
-.green-btn:hover::after {
-    width: 300px;
-    height: 300px;
-}
-.green-btn-outline {
-    background: #fff;
-    color: #43e97b;
-    border: 2px solid #43e97b;
-    font-weight: bold;
-    transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 2px 8px rgba(67, 233, 123, 0.08);
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-.green-btn-outline::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255,255,255,0.18);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s cubic-bezier(.25,.8,.25,1), height 0.4s cubic-bezier(.25,.8,.25,1);
-    z-index: -1;
-}
-.green-btn-outline:hover {
-    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+.yellow-black-btn:hover {
+    background: linear-gradient(90deg, #FFC107 0%, #222 100%);
     color: #fff;
     transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(67, 233, 123, 0.18);
+    box-shadow: 0 8px 24px rgba(255, 214, 0, 0.28);
 }
-.green-btn-outline:hover::after {
-    width: 300px;
-    height: 300px;
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        max-width: 98vw;
+        margin-top: 18vw;
+        padding: 18px 4vw 18px 4vw;
+        border-radius: 12px;
+    }
+    .profile-img {
+        width: 72px;
+        height: 72px;
+        margin-bottom: 10px;
+    }
+    .username {
+        font-size: 1.15rem;
+    }
+    .bio {
+        font-size: 0.97rem;
+    }
+    .link-btn {
+        font-size: 0.97rem;
+        padding: 11px 12px;
+    }
+    .btn-icon, .discord-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        margin-bottom: 2px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 10px 2vw 10px 2vw;
+    }
+    .link-btn {
+        font-size: 0.93rem;
+        padding: 9px 8px;
+    }
 }
 .blue-btn {
     background: linear-gradient(90deg, #304ffe 0%, #5c6bc0 100%);
@@ -192,4 +263,19 @@ a[href*="wa.me"] .btn-icon {
     height: 22px;
     margin-right: 12px;
     margin-bottom: 3px;
+}
+.yellow-black-btn {
+    background: linear-gradient(90deg, #FFD600 0%, #000 100%);
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(255, 214, 0, 0.18);
+}
+.yellow-black-btn:hover {
+    background: linear-gradient(90deg, #FFC107 0%, #222 100%);
+    color: #fff;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(255, 214, 0, 0.28);
 }
